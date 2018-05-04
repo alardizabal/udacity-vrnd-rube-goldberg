@@ -118,10 +118,10 @@ public class HandInteraction : MonoBehaviour
     void ThrowObject(Collider coli)
     {
         coli.transform.SetParent(null);
-        Rigidbody rigidbody = coli.GetComponent<Rigidbody>();
-        rigidbody.isKinematic = false;
-        rigidbody.velocity = device.velocity * throwForce;
-        rigidbody.angularVelocity = device.angularVelocity;
+        Rigidbody rigidbodyComponent = coli.GetComponent<Rigidbody>();
+        rigidbodyComponent.isKinematic = false;
+        rigidbodyComponent.velocity = device.velocity * throwForce;
+        rigidbodyComponent.angularVelocity = device.angularVelocity;
         Debug.Log("You are throwing the object");
     }
 }
