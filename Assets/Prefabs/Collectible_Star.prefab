@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135888812660308336}
   m_Layer: 0
   m_Name: Collectible_Star
-  m_TagString: Structure
+  m_TagString: Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

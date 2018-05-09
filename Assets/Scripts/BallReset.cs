@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BallReset : MonoBehaviour {
 
+    public StarManager starManager;
     public GameObject pedestal;
     public GameObject ball;
     private Transform ballResetPosition;
-
-    //private LevelProgressionManager levelProgressionManager;
+    private string currentLevel;
 
     void Start()
     {
+        currentLevel = "Level 1";
         for (int i = 0; i < this.pedestal.transform.childCount; i++)
         {
             Transform child = this.pedestal.transform.GetChild(i);
@@ -21,8 +22,6 @@ public class BallReset : MonoBehaviour {
                 break;
             }
         }
-
-        //this.levelProgressionManager = this.GetComponent<LevelProgressionManager>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -34,9 +33,8 @@ public class BallReset : MonoBehaviour {
             ballRigidBody.angularVelocity = Vector3.zero;
 
             this.ball.transform.position = this.ballResetPosition.position;
+            starManager.ResetStars();
             Debug.Log("Ground");
-
-            //this.levelProgressionManager.ResetLevelProgression();
         }
         else if (collision.collider.CompareTag("Star"))
         {
@@ -57,6 +55,18 @@ public class BallReset : MonoBehaviour {
 
     void LoadLevel()
     {
-        SteamVR_LoadLevel.Begin("Level 2");
+        if (currentLevel == "Level 1")
+        {
+            currentLevel = "Level 2";
+        }
+        else if (currentLevel == "Level 2")
+        {
+            currentLevel = "Level 3";
+        }
+        else if (currentLevel == "3")
+        {
+            currentLevel = "Level 4";
+        }
+        SteamVR_LoadLevel.Begin(currentLevel);
     }
 }

@@ -47,8 +47,8 @@ public class ObjectMenuManager : MonoBehaviour
 
     public void SpawnCurrentObject()
     {
+        Debug.Log("Spawn object");
         Instantiate(objectPrefabList[currentObject], objectList[currentObject].transform.position, objectList[currentObject].transform.rotation);
-        //loadLevel.Trigger();
     }
 
     // Update is called once per frame

@@ -95,7 +95,7 @@ public class HandInteraction : MonoBehaviour
 
     private void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.CompareTag("Throwable"))
+        if (col.gameObject.CompareTag("Throwable") || col.gameObject.CompareTag("Structure"))
         {
             if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
             {
@@ -119,10 +119,19 @@ public class HandInteraction : MonoBehaviour
     void ThrowObject(Collider coli)
     {
         coli.transform.SetParent(null);
-        Rigidbody rigidbodyComponent = coli.GetComponent<Rigidbody>();
-        rigidbodyComponent.isKinematic = false;
-        rigidbodyComponent.velocity = device.velocity * throwForce;
-        rigidbodyComponent.angularVelocity = device.angularVelocity;
-        Debug.Log("You are throwing the object");
+        Rigidbody rigidbody = coli.GetComponent<Rigidbody>();
+        if (coli.gameObject.CompareTag("Throwable"))
+        {
+            rigidbody.isKinematic = false;
+            rigidbody.velocity = device.velocity * throwForce;
+            rigidbody.angularVelocity = device.angularVelocity;
+            Debug.Log("You are throwing the object");
+        }
+        else if (coli.gameObject.CompareTag("Structure"))
+        {
+            rigidbody.isKinematic = true;
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+        }
     }
 }
