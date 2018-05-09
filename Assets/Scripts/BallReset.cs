@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallReset : MonoBehaviour {
 
     public GameObject pedestal;
-
+    public GameObject ball;
     private Transform ballResetPosition;
 
     //private LevelProgressionManager levelProgressionManager;
@@ -15,7 +15,7 @@ public class BallReset : MonoBehaviour {
         for (int i = 0; i < this.pedestal.transform.childCount; i++)
         {
             Transform child = this.pedestal.transform.GetChild(i);
-            if (child.name == "BallResetPosition")
+            if (child.name == "BallStartPosition")
             {
                 this.ballResetPosition = child.transform;
                 break;
@@ -29,13 +29,34 @@ public class BallReset : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            Rigidbody ballRigidBody = this.gameObject.GetComponent<Rigidbody>();
+            Rigidbody ballRigidBody = this.ball.GetComponent<Rigidbody>();
             ballRigidBody.velocity = Vector3.zero;
             ballRigidBody.angularVelocity = Vector3.zero;
 
-            this.gameObject.transform.position = this.ballResetPosition.position;
+            this.ball.transform.position = this.ballResetPosition.position;
+            Debug.Log("Ground");
 
             //this.levelProgressionManager.ResetLevelProgression();
         }
+        else if (collision.collider.CompareTag("Star"))
+        {
+            GameObject starObject = collision.gameObject;
+            starObject.SetActive(false);
+        }
+        else if (collision.collider.CompareTag("Goal"))
+        {
+            Rigidbody ballRigidBody = this.ball.GetComponent<Rigidbody>();
+            ballRigidBody.velocity = Vector3.zero;
+            ballRigidBody.angularVelocity = Vector3.zero;
+
+            this.ball.transform.position = this.ballResetPosition.position;
+            LoadLevel();
+            Debug.Log("Goal!");
+        }
+    }
+
+    void LoadLevel()
+    {
+        SteamVR_LoadLevel.Begin("Level 2");
     }
 }

@@ -67,6 +67,7 @@ public class HandInteraction : MonoBehaviour
             touchLast = 0;
             hasSwipedLeft = false;
             hasSwipedRight = false;
+            objectMenuManager.HideObjects();
         }
         if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
         {

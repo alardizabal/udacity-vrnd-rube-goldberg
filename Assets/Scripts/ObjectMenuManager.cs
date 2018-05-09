@@ -18,6 +18,11 @@ public class ObjectMenuManager : MonoBehaviour
         }
     }
 
+    public void HideObjects()
+    {
+        objectList[currentObject].SetActive(false);
+    }
+
     public void MenuLeft()
     {
         objectList[currentObject].SetActive(false);
@@ -43,7 +48,7 @@ public class ObjectMenuManager : MonoBehaviour
     public void SpawnCurrentObject()
     {
         Instantiate(objectPrefabList[currentObject], objectList[currentObject].transform.position, objectList[currentObject].transform.rotation);
-        loadLevel.Trigger();
+        //loadLevel.Trigger();
     }
 
     // Update is called once per frame
