@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23752410018460860}
   - component: {fileID: 54389165833767246}
   - component: {fileID: 65585381269468072}
+  - component: {fileID: 64400072883246834}
   m_Layer: 0
   m_Name: Metal_Plank_WE
   m_TagString: Structure
@@ -99,15 +100,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!64 &64400072883246834
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1696798178719026}
+  m_Material: {fileID: 13400000, guid: 2f3ecac2bd5c4424288b58dff918d39e, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300146, guid: 118b350461f06ae4d831b8b9935c8502, type: 3}
 --- !u!65 &65585381269468072
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1696798178719026}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2f3ecac2bd5c4424288b58dff918d39e, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.021199979, y: 0.0011877408, z: 0.0040032286}
   m_Center: {x: 0.000000009313226, y: 0.00030755386, z: 0.000000014319085}

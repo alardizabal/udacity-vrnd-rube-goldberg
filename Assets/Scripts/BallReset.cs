@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallReset : MonoBehaviour {
+public class BallReset : MonoBehaviour
+{
 
     public StarManager starManager;
     public GameObject pedestal;
     public GameObject ball;
+    public bool isCheating;
     private Transform ballResetPosition;
     private string currentLevel;
 
     void Start()
     {
         currentLevel = "Level 1";
-        for (int i = 0; i < this.pedestal.transform.childCount; i++)
+        for (int i = 0; i < pedestal.transform.childCount; i++)
         {
-            Transform child = this.pedestal.transform.GetChild(i);
+            Transform child = pedestal.transform.GetChild(i);
             if (child.name == "BallStartPosition")
             {
-                this.ballResetPosition = child.transform;
+                ballResetPosition = child.transform;
+                ball.GetComponent<Renderer>().material.color = Color.white;
                 break;
             }
         }
@@ -28,28 +31,44 @@ public class BallReset : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            Rigidbody ballRigidBody = this.ball.GetComponent<Rigidbody>();
+            Rigidbody ballRigidBody = ball.GetComponent<Rigidbody>();
             ballRigidBody.velocity = Vector3.zero;
             ballRigidBody.angularVelocity = Vector3.zero;
 
-            this.ball.transform.position = this.ballResetPosition.position;
+            ball.transform.position = ballResetPosition.position;
+            ball.GetComponent<Renderer>().material.color = Color.white;
             starManager.ResetStars();
-            Debug.Log("Ground");
-        }
-        else if (collision.collider.CompareTag("Star"))
-        {
-            GameObject starObject = collision.gameObject;
-            starObject.SetActive(false);
+            isCheating = false;
         }
         else if (collision.collider.CompareTag("Goal"))
         {
-            Rigidbody ballRigidBody = this.ball.GetComponent<Rigidbody>();
+            Rigidbody ballRigidBody = ball.GetComponent<Rigidbody>();
             ballRigidBody.velocity = Vector3.zero;
             ballRigidBody.angularVelocity = Vector3.zero;
 
-            this.ball.transform.position = this.ballResetPosition.position;
+            ball.transform.position = ballResetPosition.position;
             LoadLevel();
-            Debug.Log("Goal!");
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+       if (collider.gameObject.CompareTag("Star"))
+        {
+            GameObject starObject = collider.gameObject;
+            starObject.SetActive(false);
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Platform"))
+        {
+            if (ball.transform.parent != null)
+            {
+                ball.GetComponent<Renderer>().material.color = Color.red;
+                isCheating = true;
+            }
         }
     }
 
@@ -67,6 +86,7 @@ public class BallReset : MonoBehaviour {
         {
             currentLevel = "Level 4";
         }
+        isCheating = false;
         SteamVR_LoadLevel.Begin(currentLevel);
     }
 }

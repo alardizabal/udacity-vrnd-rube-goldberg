@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 54302644684660060}
   - component: {fileID: 65228578744834952}
   m_Layer: 0
-  m_Name: Wood_Plank
+  m_Name: Ice
   m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1a87eff8c73e4294cac313f7f34cb76c, type: 2}
+  - {fileID: 2100000, guid: ea696437f378c38438eaf0094407fdc8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

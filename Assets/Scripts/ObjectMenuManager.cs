@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectMenuManager : MonoBehaviour
 {
@@ -8,13 +9,27 @@ public class ObjectMenuManager : MonoBehaviour
     public List<GameObject> objectList; // handled automatically at start
     public List<GameObject> objectPrefabList; // set manually in inspector and MUST match order of scene menu objects
     public int currentObject = 0;
-
-    // Use this for initialization
+    private Dictionary<int, int> objectLimits = new Dictionary<int, int>();
+    private string currentScene;
+    
     void Start()
     {
+        configureScene();
         foreach (Transform child in transform)
         {
             objectList.Add(child.gameObject);
+        }
+    }
+
+    void configureScene()
+    {
+        currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Level 1")
+        {
+            objectLimits.Add(0, 3);
+            objectLimits.Add(1, 3);
+            objectLimits.Add(2, 3);
+            objectLimits.Add(3, 3);
         }
     }
 
@@ -49,11 +64,5 @@ public class ObjectMenuManager : MonoBehaviour
     {
         Debug.Log("Spawn object");
         Instantiate(objectPrefabList[currentObject], objectList[currentObject].transform.position, objectList[currentObject].transform.rotation);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
