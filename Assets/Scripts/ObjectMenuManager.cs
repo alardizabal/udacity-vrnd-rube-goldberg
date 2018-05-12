@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ObjectMenuManager : MonoBehaviour
@@ -8,12 +9,18 @@ public class ObjectMenuManager : MonoBehaviour
     public SteamVR_LoadLevel loadLevel;
     public List<GameObject> objectList; // handled automatically at start
     public List<GameObject> objectPrefabList; // set manually in inspector and MUST match order of scene menu objects
+    public List<Text> objectTextList;
+    private List<string> originalObjectTextList = new List<string>();
     public int currentObject = 0;
-    private Dictionary<int, int> objectLimits = new Dictionary<int, int>();
+    private Dictionary<int, int> objectLimits;
     private string currentScene;
-    
+
     void Start()
     {
+        foreach (Text text in objectTextList)
+        {
+            originalObjectTextList.Add(text.text);
+        }
         configureScene();
         foreach (Transform child in transform)
         {
@@ -21,15 +28,30 @@ public class ObjectMenuManager : MonoBehaviour
         }
     }
 
-    void configureScene()
+    public void configureScene()
     {
+        objectLimits = new Dictionary<int, int>();
         currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "Level 1")
         {
-            objectLimits.Add(0, 3);
-            objectLimits.Add(1, 3);
-            objectLimits.Add(2, 3);
-            objectLimits.Add(3, 3);
+            objectLimits.Add(0, 2);
+            objectLimits.Add(1, 2);
+            objectLimits.Add(2, 2);
+            objectLimits.Add(3, 2);
+        }
+        else if (currentScene == "Level 2")
+        {
+            objectLimits.Add(0, 1);
+            objectLimits.Add(1, 1);
+            objectLimits.Add(2, 1);
+            objectLimits.Add(3, 1);
+        }
+
+        int i = 0;
+        foreach (Text textLabel in objectTextList)
+        {
+            textLabel.text = originalObjectTextList[i] + "  (" + objectLimits[i] + ")";
+            i++;
         }
     }
 
@@ -62,7 +84,11 @@ public class ObjectMenuManager : MonoBehaviour
 
     public void SpawnCurrentObject()
     {
-        Debug.Log("Spawn object");
-        Instantiate(objectPrefabList[currentObject], objectList[currentObject].transform.position, objectList[currentObject].transform.rotation);
+        if (objectLimits[currentObject] != 0)
+        {
+            objectLimits[currentObject]--;
+            objectTextList[currentObject].text = originalObjectTextList[currentObject] + "  (" + objectLimits[currentObject] + ")";
+            Instantiate(objectPrefabList[currentObject], objectList[currentObject].transform.position, objectList[currentObject].transform.rotation);
+        }
     }
 }

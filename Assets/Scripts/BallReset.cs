@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallReset : MonoBehaviour
 {
-
+    public ObjectMenuManager objectMenuManager;
     public StarManager starManager;
     public GameObject pedestal;
     public GameObject ball;
@@ -47,13 +47,20 @@ public class BallReset : MonoBehaviour
             ballRigidBody.angularVelocity = Vector3.zero;
 
             ball.transform.position = ballResetPosition.position;
-            LoadLevel();
+            if (starManager.hasCollectedAllStars())
+            {
+                LoadLevel();
+            }
+            else
+            {
+                ball.transform.position = ballResetPosition.position;
+            }
         }
     }
 
     void OnTriggerEnter(Collider collider)
     {
-       if (collider.gameObject.CompareTag("Star"))
+        if (collider.gameObject.CompareTag("Star"))
         {
             GameObject starObject = collider.gameObject;
             starObject.SetActive(false);
@@ -74,6 +81,7 @@ public class BallReset : MonoBehaviour
 
     void LoadLevel()
     {
+        objectMenuManager.configureScene();
         if (currentLevel == "Level 1")
         {
             currentLevel = "Level 2";

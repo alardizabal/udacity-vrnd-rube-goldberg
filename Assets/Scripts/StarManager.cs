@@ -18,4 +18,13 @@ public class StarManager : MonoBehaviour
             star.SetActive(true);
         }
     }
+
+    public bool hasCollectedAllStars()
+    {
+        foreach (GameObject star in stars)
+        {
+            if (star.activeSelf) return false;
+        }
+        return true;
+    }
 }
