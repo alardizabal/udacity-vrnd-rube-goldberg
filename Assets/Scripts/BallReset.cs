@@ -8,6 +8,7 @@ public class BallReset : MonoBehaviour
     public StarManager starManager;
     public GameObject pedestal;
     public GameObject ball;
+    public GameObject messageBoard;
     public bool isCheating;
     private Transform ballResetPosition;
     private string currentLevel;
@@ -94,7 +95,14 @@ public class BallReset : MonoBehaviour
         {
             currentLevel = "Level 4";
         }
+        else if (currentLevel == "4")
+        {
+            messageBoard.SetActive(true);
+        }
         isCheating = false;
-        SteamVR_LoadLevel.Begin(currentLevel);
+        if (currentLevel != "Level 4")
+        {
+            SteamVR_LoadLevel.Begin(currentLevel);
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class StarManager : MonoBehaviour
 {
     public List<GameObject> stars;
-    
+
     void Start()
     {
 

@@ -34,12 +34,26 @@ public class ObjectMenuManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "Level 1")
         {
-            objectLimits.Add(0, 2);
-            objectLimits.Add(1, 2);
-            objectLimits.Add(2, 2);
-            objectLimits.Add(3, 2);
+            objectLimits.Add(0, 4);
+            objectLimits.Add(1, 4);
+            objectLimits.Add(2, 4);
+            objectLimits.Add(3, 4);
         }
         else if (currentScene == "Level 2")
+        {
+            objectLimits.Add(0, 3);
+            objectLimits.Add(1, 1);
+            objectLimits.Add(2, 2);
+            objectLimits.Add(3, 1);
+        }
+        else if (currentScene == "Level 3")
+        {
+            objectLimits.Add(0, 2);
+            objectLimits.Add(1, 1);
+            objectLimits.Add(2, 2);
+            objectLimits.Add(3, 1);
+        }
+        else if (currentScene == "Level 4")
         {
             objectLimits.Add(0, 1);
             objectLimits.Add(1, 1);

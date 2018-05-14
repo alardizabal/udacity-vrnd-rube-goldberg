@@ -20,12 +20,12 @@ public class HandInteraction : MonoBehaviour
     public bool hasSwipedLeft;
     public bool hasSwipedRight;
     public ObjectMenuManager objectMenuManager;
-    
+
     void Start()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
-    
+
     void Update()
     {
         device = SteamVR_Controller.Input((int)trackedObj.index);

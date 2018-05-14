@@ -15,7 +15,7 @@ public class ControllerInputManager : MonoBehaviour
     public LayerMask laserMask;
     public static float yNudgeAmount = 1f; // specific to teleportAimerObject height
     private static readonly Vector3 yNudgeVector = new Vector3(0f, yNudgeAmount, 0f);
-    
+
     void Start()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
@@ -31,7 +31,7 @@ public class ControllerInputManager : MonoBehaviour
     {
         laser.SetPosition(1, endPos);
     }
-    
+
     void Update()
     {
         device = SteamVR_Controller.Input((int)trackedObj.index);

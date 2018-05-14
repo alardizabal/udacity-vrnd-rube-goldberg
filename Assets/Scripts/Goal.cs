@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goal : MonoBehaviour {
-    
-	void Start () {
+public class Goal : MonoBehaviour
+{
+
+    void Start()
+    {
         SteamVR_LoadLevel.Begin("Level 1");
-	}
+    }
 }
