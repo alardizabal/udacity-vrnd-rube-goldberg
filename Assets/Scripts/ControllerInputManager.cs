@@ -22,12 +22,12 @@ public class ControllerInputManager : MonoBehaviour
         laser = GetComponentInChildren<LineRenderer>();
     }
 
-    void setLaserStart(Vector3 startPos)
+    void SetLaserStart(Vector3 startPos)
     {
         laser.SetPosition(0, startPos);
     }
 
-    void setLaserEnd(Vector3 endPos)
+    void SetLaserEnd(Vector3 endPos)
     {
         laser.SetPosition(1, endPos);
     }
@@ -39,7 +39,7 @@ public class ControllerInputManager : MonoBehaviour
         {
             laser.gameObject.SetActive(true);
             teleportAimerObject.SetActive(true);
-            setLaserStart(gameObject.transform.position);
+            SetLaserStart(gameObject.transform.position);
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 15, laserMask))
             {
@@ -53,7 +53,7 @@ public class ControllerInputManager : MonoBehaviour
                 {
                     teleportLocation.y = groundRay.point.y;
                 }
-                setLaserEnd(teleportLocation);
+                SetLaserEnd(teleportLocation);
                 teleportAimerObject.transform.position = teleportLocation + yNudgeVector;
             }
         }

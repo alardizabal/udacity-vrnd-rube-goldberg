@@ -7,6 +7,6 @@ public class Goal : MonoBehaviour
 
     void Start()
     {
-        SteamVR_LoadLevel.Begin("Level 1");
+        //SteamVR_LoadLevel.Begin("Level 1");
     }
 }

@@ -21,14 +21,14 @@ public class ObjectMenuManager : MonoBehaviour
         {
             originalObjectTextList.Add(text.text);
         }
-        configureScene();
+        ConfigureScene();
         foreach (Transform child in transform)
         {
             objectList.Add(child.gameObject);
         }
     }
 
-    public void configureScene()
+    public void ConfigureScene()
     {
         objectLimits = new Dictionary<int, int>();
         currentScene = SceneManager.GetActiveScene().name;
@@ -42,7 +42,7 @@ public class ObjectMenuManager : MonoBehaviour
         else if (currentScene == "Level 2")
         {
             objectLimits.Add(0, 3);
-            objectLimits.Add(1, 1);
+            objectLimits.Add(1, 2);
             objectLimits.Add(2, 2);
             objectLimits.Add(3, 1);
         }
@@ -51,14 +51,14 @@ public class ObjectMenuManager : MonoBehaviour
             objectLimits.Add(0, 2);
             objectLimits.Add(1, 1);
             objectLimits.Add(2, 2);
-            objectLimits.Add(3, 1);
+            objectLimits.Add(3, 3);
         }
         else if (currentScene == "Level 4")
         {
             objectLimits.Add(0, 1);
-            objectLimits.Add(1, 1);
+            objectLimits.Add(1, 2);
             objectLimits.Add(2, 1);
-            objectLimits.Add(3, 1);
+            objectLimits.Add(3, 2);
         }
 
         int i = 0;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallReset : MonoBehaviour
 {
@@ -11,11 +12,10 @@ public class BallReset : MonoBehaviour
     public GameObject messageBoard;
     public bool isCheating;
     private Transform ballResetPosition;
-    private string currentLevel;
 
     void Start()
     {
-        currentLevel = "Level 1";
+        //currentLevel = SceneManager.GetActiveScene().name;
         for (int i = 0; i < pedestal.transform.childCount; i++)
         {
             Transform child = pedestal.transform.GetChild(i);
@@ -27,7 +27,7 @@ public class BallReset : MonoBehaviour
             }
         }
     }
-
+  
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ground"))
@@ -48,12 +48,13 @@ public class BallReset : MonoBehaviour
             ballRigidBody.angularVelocity = Vector3.zero;
 
             ball.transform.position = ballResetPosition.position;
-            if (starManager.hasCollectedAllStars())
+            if (starManager.HasCollectedAllStars())
             {
                 LoadLevel();
             }
             else
             {
+                starManager.ResetStars();
                 ball.transform.position = ballResetPosition.position;
             }
         }
@@ -82,27 +83,24 @@ public class BallReset : MonoBehaviour
 
     void LoadLevel()
     {
-        objectMenuManager.configureScene();
+        objectMenuManager.ConfigureScene();
+        string currentLevel = SceneManager.GetActiveScene().name;
         if (currentLevel == "Level 1")
         {
-            currentLevel = "Level 2";
+            SteamVR_LoadLevel.Begin("Level 2");
         }
         else if (currentLevel == "Level 2")
         {
-            currentLevel = "Level 3";
+            SteamVR_LoadLevel.Begin("Level 3");
         }
-        else if (currentLevel == "3")
+        else if (currentLevel == "Level 3")
         {
-            currentLevel = "Level 4";
+            SteamVR_LoadLevel.Begin("Level 4");
         }
-        else if (currentLevel == "4")
+        else if (currentLevel == "Level 4")
         {
             messageBoard.SetActive(true);
         }
         isCheating = false;
-        if (currentLevel != "Level 4")
-        {
-            SteamVR_LoadLevel.Begin(currentLevel);
-        }
     }
 }

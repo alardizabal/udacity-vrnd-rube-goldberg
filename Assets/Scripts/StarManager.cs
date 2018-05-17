@@ -19,7 +19,7 @@ public class StarManager : MonoBehaviour
         }
     }
 
-    public bool hasCollectedAllStars()
+    public bool HasCollectedAllStars()
     {
         foreach (GameObject star in stars)
         {
