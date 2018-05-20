@@ -17,7 +17,6 @@ public class BallReset : MonoBehaviour
 
     void Start()
     {
-        //currentLevel = SceneManager.GetActiveScene().name;
         for (int i = 0; i < pedestal.transform.childCount; i++)
         {
             Transform child = pedestal.transform.GetChild(i);
