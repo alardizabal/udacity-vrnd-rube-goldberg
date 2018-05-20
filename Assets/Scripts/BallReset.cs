@@ -12,6 +12,8 @@ public class BallReset : MonoBehaviour
     public GameObject messageBoard;
     public bool isCheating;
     private Transform ballResetPosition;
+    public bool wasThrownFromOutsidePlatform = false;
+    public bool isOutsidePlatform;
 
     void Start()
     {
@@ -38,10 +40,11 @@ public class BallReset : MonoBehaviour
 
             ball.transform.position = ballResetPosition.position;
             ball.GetComponent<Renderer>().material.color = Color.white;
+            wasThrownFromOutsidePlatform = false;
             starManager.ResetStars();
             isCheating = false;
         }
-        else if (collision.collider.CompareTag("Goal"))
+        else if (collision.collider.CompareTag("Goal") && !wasThrownFromOutsidePlatform)
         {
             Rigidbody ballRigidBody = ball.GetComponent<Rigidbody>();
             ballRigidBody.velocity = Vector3.zero;
@@ -66,6 +69,9 @@ public class BallReset : MonoBehaviour
         {
             GameObject starObject = collider.gameObject;
             starObject.SetActive(false);
+        } else if (collider.gameObject.CompareTag("Platform"))
+        {
+            isOutsidePlatform = false;
         }
     }
 
@@ -73,6 +79,7 @@ public class BallReset : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Platform"))
         {
+            isOutsidePlatform = true;
             if (ball.transform.parent != null)
             {
                 ball.GetComponent<Renderer>().material.color = Color.red;

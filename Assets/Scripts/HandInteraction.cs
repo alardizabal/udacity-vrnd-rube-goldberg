@@ -14,6 +14,7 @@ public class HandInteraction : MonoBehaviour
 
     // Swipe
     public float swipeSum;
+    public bool isTouchpadActive;
     public float touchLast;
     public float touchCurrent;
     public float distance;
@@ -39,10 +40,12 @@ public class HandInteraction : MonoBehaviour
         {
             if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Touchpad))
             {
+                isTouchpadActive = true;
                 touchLast = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad).x;
             }
             if (device.GetTouch(SteamVR_Controller.ButtonMask.Touchpad))
             {
+                isTouchpadActive = true;
                 touchCurrent = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad).x;
                 distance = touchCurrent - touchLast;
                 touchLast = touchCurrent;
@@ -71,6 +74,7 @@ public class HandInteraction : MonoBehaviour
             }
             if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad))
             {
+                isTouchpadActive = false;
                 swipeSum = 0;
                 touchCurrent = 0;
                 touchLast = 0;
@@ -78,7 +82,7 @@ public class HandInteraction : MonoBehaviour
                 hasSwipedRight = false;
                 objectMenuManager.HideObjects();
             }
-            if (touchCurrent != 0 && device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+            if (isTouchpadActive && device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
             {
                 SpawnObject();
             }
@@ -127,6 +131,10 @@ public class HandInteraction : MonoBehaviour
 
     void ThrowObject(Collider coli)
     {
+        if (ballManager.isOutsidePlatform)
+        {
+            ballManager.wasThrownFromOutsidePlatform = true;
+        }
         coli.transform.SetParent(null);
         Rigidbody rigidbody = coli.GetComponent<Rigidbody>();
         if (coli.gameObject.CompareTag("Throwable"))
