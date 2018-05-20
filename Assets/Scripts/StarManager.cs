@@ -6,11 +6,6 @@ public class StarManager : MonoBehaviour
 {
     public List<GameObject> stars;
 
-    void Start()
-    {
-
-    }
-
     public void ResetStars()
     {
         foreach (GameObject star in stars)
