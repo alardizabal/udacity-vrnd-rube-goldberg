@@ -22,10 +22,6 @@ public class ObjectMenuManager : MonoBehaviour
             originalObjectTextList.Add(text.text);
         }
         ConfigureScene();
-        foreach (Transform child in transform)
-        {
-            objectList.Add(child.gameObject);
-        }
     }
 
     public void ConfigureScene()
